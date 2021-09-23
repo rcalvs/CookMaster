@@ -16,7 +16,7 @@ const validate = async (name, email, password) => {
   }
 };
     
-const secret = process.env.SECRET;
+const secret = process.env.SECRET || 'secret';
 const createToken = (user) => {
   const { password: _, ...payload } = user;
   const jwtConfig = {
