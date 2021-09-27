@@ -37,10 +37,23 @@ const deleteById = async (req, res) => {
   return res.status(204).json({});
 };
 
+const addImage = async (req, res) => {
+  const { id } = req.params;
+  const { path } = req.file;
+  const recipe = await recipesService.getOneRecipe(id);
+  res.status(200).json({ ...recipe, image: `localhost:3000/${path}` });
+};
+
+const showImage = async (req, res) => {
+  res.status(200).render('file', { path: req.file.path });
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   editById,
   deleteById,
+  addImage,
+  showImage,
 }; 
