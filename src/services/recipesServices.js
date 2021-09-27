@@ -25,9 +25,15 @@ const editById = async (id, name, ingredients, preparation) => {
   return editedRecipe;
 };
 
+const deleteById = async (id) => {
+  const recipe = await recipesModel.deleteById(id);
+  return recipe;
+};
+
 module.exports = { 
   create,
   getAll,
   getById,
   editById,
+  deleteById,
 }; 
