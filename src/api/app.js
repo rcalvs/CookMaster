@@ -32,6 +32,7 @@ app.get('/recipes/:id', recipesController.getById);
 app.put('/recipes/:id', authenticator, recipesController.editById);
 app.delete('/recipes/:id', authenticator, recipesController.deleteById);
 app.put('/recipes/:id/image/', authenticator, upload.single('image'), recipesController.addImage);
-app.get('/images/:id.jpeg', recipesController.showImage);
+app.get('/images/:id', recipesController.showImage);
+app.post('/users/admin', authenticator, userController.createAdmin);
 
 module.exports = app;

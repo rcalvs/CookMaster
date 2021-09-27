@@ -59,9 +59,15 @@ const login = async (email, password) => {
   return token;
 };
 
+const createAdmin = async (name, email, password) => {
+  const user = await usersModel.createAdmin(name, email, password);
+  return user;
+};
+
 module.exports = {
   create,
   login,
+  createAdmin,
   // getAll,
   // findByName,
   // getById,

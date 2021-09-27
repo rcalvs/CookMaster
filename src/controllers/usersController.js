@@ -20,9 +20,20 @@ const login = async (req, res) => {
   return res.status(HTTP_200).json({ token });
 };
 
+const createAdmin = async (req, res) => {
+  const { name, email, password } = req.body;
+  const { role } = req.payload;
+  if (role !== 'admin') {
+    return res.status(403).json({ message: 'Only admins can register new admins' });
+  }
+  const user = await usersServices.createAdmin(name, email, password);
+  return res.status(201).json(user);
+};
+
 module.exports = {
   create,
   login,
+  createAdmin,
   // getAll,
   // getById,
   // editById,
