@@ -40,7 +40,7 @@ const deleteById = async (req, res) => {
 const addImage = async (req, res) => {
   const { id } = req.params;
   const { path } = req.file;
-  const recipe = await recipesService.getOneRecipe(id);
+  const recipe = await recipesService.getById(id);
   res.status(200).json({ ...recipe, image: `localhost:3000/${path}` });
 };
 
