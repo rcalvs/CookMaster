@@ -5,7 +5,7 @@ const multer = require('multer');
 
 const userController = require('../controllers/usersController');
 const recipesController = require('../controllers/recipesController');
-const authenticator = require('../services/authenticator');
+const { authenticator } = require('../services/authenticator');
 
 const app = express();
 app.use(bodyParser.json());
@@ -24,15 +24,18 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+app.post('/users/admin', authenticator, userController.createAdmin);
 app.post('/users', userController.create);
 app.post('/login', userController.login);
-app.post('/recipes', authenticator, recipesController.create);
-app.get('/recipes', recipesController.getAll);
+
+app.put('/recipes/:id/image/', authenticator, upload.single('image'), recipesController.addImage);
 app.get('/recipes/:id', recipesController.getById);
 app.put('/recipes/:id', authenticator, recipesController.editById);
 app.delete('/recipes/:id', authenticator, recipesController.deleteById);
-app.put('/recipes/:id/image/', authenticator, upload.single('image'), recipesController.addImage);
+app.get('/recipes', recipesController.getAll);
+
+app.post('/recipes', authenticator, recipesController.create);
+
 app.get('/images/:id', recipesController.showImage);
-app.post('/users/admin', authenticator, userController.createAdmin);
 
 module.exports = app;
